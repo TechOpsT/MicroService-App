@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-helm:
+    name: Lint Helm Charts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Lint umbrella chart
+        run: helm lint helm/taskflow
+
+      - name: Template render check
+        run: |
+          helm template taskflow helm/taskflow \
+            --set global.jwtSecret=test-secret \
+            --set postgres.auth.password=test-pass \
+            > /dev/null
+
+  build-images:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [frontend, api-gateway, user-service, task-service]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.service }}
+        uses: docker/build-push-action@v5
+        with:
+          context: services/${{ matrix.service }}
+          push: false
+          tags: taskflow/${{ matrix.service }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -1,0 +1,22 @@
+apiVersion: v2
+name: taskflow
+description: TaskFlow microservices application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+dependencies:
+  - name: postgres
+    version: "0.1.0"
+    repository: "file://charts/postgres"
+  - name: user-service
+    version: "0.1.0"
+    repository: "file://charts/user-service"
+  - name: task-service
+    version: "0.1.0"
+    repository: "file://charts/task-service"
+  - name: api-gateway
+    version: "0.1.0"
+    repository: "file://charts/api-gateway"
+  - name: frontend
+    version: "0.1.0"
+    repository: "file://charts/frontend"

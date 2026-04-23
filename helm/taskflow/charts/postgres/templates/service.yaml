@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "postgres.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "postgres.selectorLabels" . | nindent 4 }}
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+      name: postgres

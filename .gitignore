@@ -1,0 +1,12 @@
+.claude/
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+*.log
+dist/
+.DS_Store
+*.tgz
+charts/*.tgz

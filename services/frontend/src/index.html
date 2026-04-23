@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; }
+    header { background: #16213e; color: #e2e2e2; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.4rem; letter-spacing: .05em; }
+    #user-info { font-size: .9rem; display: flex; gap: 1rem; align-items: center; }
+    .btn { padding: .45rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-size: .9rem; }
+    .btn-primary { background: #0f3460; color: #fff; }
+    .btn-danger  { background: #e94560; color: #fff; }
+    .btn-success { background: #1a936f; color: #fff; }
+    .btn:hover { opacity: .85; }
+    main { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: #fff; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .card h2 { margin-bottom: 1rem; font-size: 1.1rem; color: #0f3460; }
+    .form-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    input, textarea, select { flex: 1; padding: .5rem .75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: .9rem; }
+    textarea { resize: vertical; min-height: 60px; }
+    #task-list { list-style: none; }
+    #task-list li { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: .9rem 1rem; margin-bottom: .6rem; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+    .task-meta { flex: 1; }
+    .task-title { font-weight: 600; margin-bottom: .2rem; }
+    .task-desc  { font-size: .82rem; color: #6b7280; }
+    .badge { display: inline-block; font-size: .72rem; padding: .15rem .55rem; border-radius: 20px; font-weight: 600; text-transform: uppercase; }
+    .badge-pending   { background: #fef3c7; color: #92400e; }
+    .badge-in-progress { background: #dbeafe; color: #1e40af; }
+    .badge-done      { background: #d1fae5; color: #065f46; }
+    .task-actions { display: flex; gap: .4rem; flex-shrink: 0; }
+    .msg { padding: .5rem .75rem; border-radius: 6px; margin-bottom: .75rem; font-size: .88rem; }
+    .msg-error   { background: #fee2e2; color: #991b1b; }
+    .msg-success { background: #d1fae5; color: #065f46; }
+    #auth-section, #app-section { display: none; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>TaskFlow</h1>
+  <div id="user-info"></div>
+</header>
+
+<main>
+  <div id="auth-section" class="card">
+    <h2 id="auth-title">Login</h2>
+    <div id="auth-msg"></div>
+    <div class="form-row">
+      <input id="auth-email" type="email" placeholder="Email" />
+      <input id="auth-password" type="password" placeholder="Password" />
+    </div>
+    <div class="form-row" id="register-extra" style="display:none">
+      <input id="auth-username" type="text" placeholder="Username" />
+    </div>
+    <div style="display:flex;gap:.75rem;margin-top:.5rem">
+      <button class="btn btn-primary" id="auth-submit-btn">Login</button>
+      <button class="btn" id="auth-toggle-btn" style="background:#e5e7eb">Switch to Register</button>
+    </div>
+  </div>
+
+  <div id="app-section">
+    <div class="card">
+      <h2>Add Task</h2>
+      <div id="task-msg"></div>
+      <div class="form-row">
+        <input id="task-title" type="text" placeholder="Task title" />
+      </div>
+      <div class="form-row">
+        <textarea id="task-desc" placeholder="Description (optional)"></textarea>
+      </div>
+      <button class="btn btn-success" id="add-task-btn">Add Task</button>
+    </div>
+
+    <div class="card">
+      <h2>My Tasks</h2>
+      <ul id="task-list"><li style="color:#9ca3af;font-size:.9rem">Loading...</li></ul>
+    </div>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: user-service
+description: User authentication service for TaskFlow
+type: application
+version: 0.1.0
